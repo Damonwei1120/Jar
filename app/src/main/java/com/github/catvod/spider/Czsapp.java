@@ -11,6 +11,13 @@ import com.github.catvod.utils.gZip;
 import com.github.catvod.utils.okhttp.OKCallBack;
 import com.github.catvod.utils.okhttp.OkHttpUtil;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.StringReader;
@@ -23,20 +30,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 public class Czsapp extends Spider {
     private static final Pattern Y = Pattern.compile("\"([^\"]+)\";var [\\d\\w]+=function dncry.*md5.enc.Utf8.parse\\(\"([\\d\\w]+)\".*md5.enc.Utf8.parse\\(([\\d]+)\\)");
@@ -134,7 +136,7 @@ public class Czsapp extends Spider {
     public String categoryContent(String str, String str2, boolean z, HashMap<String, String> hashMap) {
         try {
             JSONObject jSONObject = new JSONObject();
-            Document doc = Jsoup.parse(OkHttpUtil.string("https://czspp.com/" + str + "/page/" + str2, Headers()));
+            Document doc = Jsoup.parse(OkHttpUtil.string("https://czzy.pro/" + str + "/page/" + str2, Headers()));
             int parseInt = Integer.parseInt(str2);
             int parseInt2 = Integer.parseInt(str2);
                 Matcher matcher = I.matcher(doc.select("div.pagenavi_txt > a.extend").last().attr("href"));
@@ -177,7 +179,7 @@ public class Czsapp extends Spider {
             JSONObject jSONObject = new JSONObject();
             JSONArray jSONArray = new JSONArray();
             JSONObject jSONObject2 = new JSONObject();
-            Document doc = Jsoup.parse(OkHttpUtil.string("https://czspp.com/movie/" + list.get(0) + ".html", Headers()));
+            Document doc = Jsoup.parse(OkHttpUtil.string("https://czzy.pro/movie/" + list.get(0) + ".html", Headers()));
             String trim = doc.select("div.moviedteail_tt > h1").text().trim();
             String pY2 = doc.select("div.dyimg > img").attr("src");
             Iterator<Element> it = doc.select("ul.moviedteail_list > li").iterator();
@@ -241,7 +243,7 @@ public class Czsapp extends Spider {
         try {
 
             JSONObject jSONObject = new JSONObject();
-            Document doc = Jsoup.parse(OkHttpUtil.string("https://czspp.com", Headers()));
+            Document doc = Jsoup.parse(OkHttpUtil.string("https://czzy.pro", Headers()));
             Elements jS = doc.select(".navlist > li > a");
             JSONArray jSONArray = new JSONArray();
             for (Element next : jS) {
@@ -293,7 +295,7 @@ public class Czsapp extends Spider {
         String str4;
         Elements G8;
         try {
-            String K2 = OkHttpUtil.string("https://czspp.com/v_play/" + str2 + ".html", Headers());
+            String K2 = OkHttpUtil.string("https://czzy.pro/v_play/" + str2 + ".html", Headers());
             Document UR = Jsoup.parse(K2);
             Matcher matcher = Y.matcher(K2);
             if (matcher.find()) {
@@ -399,7 +401,7 @@ public class Czsapp extends Spider {
     public String searchContent(String str, boolean z) {
         try {
             JSONObject jSONObject = new JSONObject();
-            Elements jS = Jsoup.parse(OkHttpUtil.string("https://czspp.com/xssearch?q=" + URLEncoder.encode(str), Headers())).select("div.mi_ne_kd > ul > li");
+            Elements jS = Jsoup.parse(OkHttpUtil.string("https://czzy.pro/xssearch?q=" + URLEncoder.encode(str), Headers())).select("div.mi_ne_kd > ul > li");
             JSONArray jSONArray = new JSONArray();
             for (Element next : jS) {
                 Matcher matcher = Db.matcher(next.select("a").attr("href"));
